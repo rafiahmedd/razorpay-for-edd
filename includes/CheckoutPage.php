@@ -62,7 +62,7 @@ class CheckoutPage
             ];
 
             /**
-             * Filters the arguments sent to PayPal.
+             * Filters the arguments sent to RazorPay.
              *
              * @param array $order_data    API request arguments.
              * @param array $purchase_data Purchase data.
@@ -113,13 +113,13 @@ class CheckoutPage
                 $timestamp = time();
                 wp_send_json_success( array(
                     'edd_order_id'    => $payment_id,
-                    'nonce'           => wp_create_nonce( 'edd_process_paypal' ),
+                    'nonce'           => wp_create_nonce( 'edd_process_razorpay' ),
                     'timestamp'       => $timestamp,
                 ) );
             } catch ( \Exception $e ) {
                 throw new \Exception( __( 'An authentication error occurred. Please try again.', 'easy-digital-downloads' ), $e->getCode(), $e->getMessage() );
             } catch ( \Exception $e ) {
-                throw new \Exception( __( 'An error occurred while communicating with PayPal. Please try again.', 'easy-digital-downloads' ), $e->getCode(), $e->getMessage() );
+                throw new \Exception( __( 'An error occurred while communicating with RazorPay. Please try again.', 'easy-digital-downloads' ), $e->getCode(), $e->getMessage() );
             }
         } catch ( \Exception $e ) {
             if ( ! isset( $payment_id ) ) {

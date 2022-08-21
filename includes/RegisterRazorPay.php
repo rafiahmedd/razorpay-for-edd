@@ -1,5 +1,6 @@
 <?php
 namespace PluginBuffet\RazorpayForEdd;
+use PluginBuffet\RazorpayForEdd\Helper;
 
 /**
  * This class is responsible for registering the Razorpay gateway with EDD.
@@ -78,7 +79,13 @@ class RegisterRazorPay
             'id' => 'razorpay_secret',
             'name' => __( 'Razorpay Secret', 'razorpay-for-edd' ),
             'desc' => __( 'Enter your Razorpay Secret', 'razorpay-for-edd' ),
-            'type' => 'text',
+            'type' => 'password',
+        );
+        $settings['razorpay_gateway']['razorpay_webhook_token'] = array(
+            'id' => 'razorpay_webhook_token',
+            'name' => __( 'Razorpay Webhook', 'razorpay-for-edd' ),
+            'desc' => home_url() . '/?edd_razorpay_webhook_token='. Helper::getRazorPayWebhookToken(),
+            'type' => 'descriptive_text'
         );
 
         return $settings;

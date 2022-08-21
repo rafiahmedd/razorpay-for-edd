@@ -70,6 +70,7 @@ if( !class_exists( 'RazorPayForEDD' ) ) {
         {
             new \PluginBuffet\RazorpayForEdd\RegisterRazorPay();
             (new \PluginBuffet\RazorpayForEdd\CheckoutPage())->init();
+            (new \PluginBuffet\RazorpayForEdd\Api\HandleRazorRequest())->handleRequest();
         }
 
 
