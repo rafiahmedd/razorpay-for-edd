@@ -1,6 +1,10 @@
 <?php
 namespace PluginBuffet\RazorpayForEdd;
 
+/**
+ * This class is responsible for registering the Razorpay gateway with EDD.
+ */
+
 class RegisterRazorPay
 {
     public function __construct()
@@ -11,12 +15,24 @@ class RegisterRazorPay
 //        add_action('edd_razorpay_gateway_cc_form', '__return_false');
     }
 
+    /**
+     * Add the Razorpay gateway section to the EDD settings.
+     *
+     * @param array $sections The existing EDD settings sections.
+     * @return array The modified EDD settings sections.
+     */
     public function addRazorPaySection ( $sections )
     {
         $sections['razorpay_gateway'] = __( 'Razorpay Settings', 'easy-digital-downloads' );
         return $sections;
     }
 
+    /**
+     * Add the Razorpay gateway settings to the EDD settings.
+     *
+     * @param array $settings The existing EDD settings.
+     * @return array The modified EDD settings.
+     */
     public function addRazorPaySettings ( $settings )
     {
         $settings = $this->addRazorPaySetupSettings( $settings );
@@ -26,6 +42,12 @@ class RegisterRazorPay
         return $settings;
     }
 
+    /**
+     * Add the Razorpay gateway settings to the EDD settings.
+     *
+     * @param array $settings The existing EDD settings.
+     * @return array The modified EDD settings.
+     */
     public function addRazorPayGateway( $gateways )
     {
         $gateways['razorpay_gateway'] = [
@@ -37,6 +59,7 @@ class RegisterRazorPay
         return $gateways;
     }
 
+    // This method will add the RazorPay settings fields to the EDD settings.
     private function addRazorPaySetupSettings( $settings )
     {
         $settings['razorpay_gateway']['razorpay_gateway_header'] = array(
@@ -61,6 +84,7 @@ class RegisterRazorPay
         return $settings;
     }
 
+    // This method will add the RazorPay in EDD gateways.
     private function addRazorPayInGateways ( $settings )
     {
         $settings['main']['gateways']['options']['razorpay_gateway'] = [

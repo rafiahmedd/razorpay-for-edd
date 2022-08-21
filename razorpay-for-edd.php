@@ -126,7 +126,7 @@ function RazorPayForEDD_load() {
             require_once 'includes/class.extension-activation.php';
         }
 
-        $activation = new EDD_Extension_Activation( plugin_dir_path( __FILE__ ), basename( __FxILE__ ) );
+        $activation = new EDD_Extension_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
         $activation = $activation->run();
     } else {
         return RazorPayForEDD::instance();

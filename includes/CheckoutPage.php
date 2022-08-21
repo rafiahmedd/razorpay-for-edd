@@ -146,19 +146,6 @@ class CheckoutPage
             } else {
                 $this->failPayment( $orderMeta->edd_order_id );
             }
-//                $payment = new \EDD_Payment($orderMeta->edd_order_id);
-
-//                if ( 'complete' != $payment->status ) {
-//                    edd_update_payment_status( $payment->ID, 'complete' );
-//                }
-////                $payment->status = 'complete';
-////                $payment->save();
-//                edd_insert_payment_note($orderMeta->edd_order_id, 'Payment Successful');
-//                edd_empty_cart();
-//                edd_send_to_success_page();
-//            } else {
-//                edd_insert_payment_note($orderMeta->edd_order_id, 'Payment Failed');
-//                edd_send_to_failed_page();
             }
     }
 
