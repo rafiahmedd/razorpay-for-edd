@@ -36,6 +36,12 @@ class HandleRazorRequest
             case 'refund.created':
                 return $this->handleRefund( $eddOrderID );
                 break;
+            case 'payment_link.paid':
+                return $this->handlePaid( $eddOrderID );
+                break;
+            case 'payment_link.failed':
+                return $this->handleFailed( $eddOrderID );
+                break;
           }
     }
 
@@ -50,6 +56,33 @@ class HandleRazorRequest
 
         $wpdb->update( $wpdb->prefix . 'edd_orders',
             ['status' => 'refunded'], [ 'id' => $eddOrderID]
+        );
+    }
+
+    // Method to handle the paid event
+    private function handlePaid( $eddOrderID )
+    {
+        global $wpdb;
+
+        $wpdb->update( $wpdb->prefix . 'edd_order_items',
+            ['status' => 'complete'], ['status' => 'pending', 'order_id' => $eddOrderID]
+        );
+
+        $wpdb->update( $wpdb->prefix . 'edd_orders',
+            ['status' => 'complete'], ['status' => 'pending', 'id' => $eddOrderID]
+        );
+    }
+
+    // Method to handle the failed event
+    private function handleFailed( $eddOrderID )
+    {
+        global $wpdb;
+
+        $wpdb->update( $wpdb->prefix . 'edd_order_items',
+            ['status' => 'failed'], ['status' => 'pending', 'order_id' => $eddOrderID]
+        );
+        $wpdb->update( $wpdb->prefix . 'edd_orders',
+            ['status' => 'failed'], ['status' => 'pending', 'id' => $eddOrderID]
         );
     }
 }
