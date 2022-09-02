@@ -88,6 +88,20 @@ class RegisterRazorPay
             'type' => 'descriptive_text'
         );
 
+        $settings['razorpay_gateway']['razorpay_notifications'] = array(
+            'id' => 'razorpay_notifications',
+            'name' => __( 'Notifications', 'razorpay-for-edd' ),
+            'desc' => __( 'Send notifications to the admin when a payment is made', 'razorpay-for-edd' ),
+            'type'    => 'select',
+            'std'     => 'none',
+            'options' => array(
+                'none' => __( 'None', 'razorpay-for-edd' ),
+                'email' => __( 'Email', 'razorpay-for-edd' ),
+                'sms' => __( 'SMS', 'razorpay-for-edd' ),
+                'email_sms' => __( 'Email & SMS', 'razorpay-for-edd' ),
+            ),
+        );
+
         return $settings;
     }
 

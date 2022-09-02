@@ -24,7 +24,15 @@ class CheckoutPage
     //     }
     // }
 
-    public function createRazorpayOrder( $purchase_data )
+
+    /**
+     * Create the Razorpay order and redirect to the Razorpay payment page.
+     *
+     * @param array $purchase_data
+     * @throws \Exception
+     * @return void
+     */
+    public function createRazorpayOrder($purchase_data )
     {
 
         try {
@@ -84,7 +92,7 @@ class CheckoutPage
                     $paymentData = array(
                         'amount'       => intval($purchase_data['price'] . '00'),
                         'currency'     => edd_get_currency(),
-                        'description'  => 'Rafi',
+                        'description'  => 'Payment for EDD Order #' . $payment_id,
                         'reference_id' => $this->razorpayOrderId,
                         'customer'     => [
                             'email' => $purchase_data['user_email'],
@@ -94,10 +102,7 @@ class CheckoutPage
                             'edd_order_id'       => $payment_id,
                         ],
                         'callback_method' => 'get',
-                        'notify' => [
-                            'email' => true,
-                            'sms' => false,
-                        ]
+                        'notify' => $this->handleNotify()
                     );
 
                     $paymentRequest = RazorAPI::request('payment_links', $paymentData, 'POST' );
@@ -112,10 +117,11 @@ class CheckoutPage
                  */
                 $timestamp = time();
                 wp_send_json_success( array(
-                    'edd_order_id'    => $payment_id,
-                    'nonce'           => wp_create_nonce( 'edd_process_razorpay' ),
-                    'timestamp'       => $timestamp,
-                ) );
+                        'edd_order_id'    => $payment_id,
+                        'nonce'           => wp_create_nonce( 'edd_process_razorpay' ),
+                        'timestamp'       => $timestamp,
+                    )
+                );
             } catch ( \Exception $e ) {
                 throw new \Exception( __( 'An authentication error occurred. Please try again.', 'easy-digital-downloads' ), $e->getCode(), $e->getMessage() );
             } catch ( \Exception $e ) {
@@ -137,7 +143,12 @@ class CheckoutPage
         }
     }
 
-    public function handlePayment( )
+
+    /**
+     * Handle the payment when webhook system is disabled.
+     * @return void
+     */
+    public function handlePayment()
     {
         if ($_REQUEST  && isset($_REQUEST['razorpay_payment_id'])) {
             $orderMeta =  $this->getOrderMetaByID( $_REQUEST['razorpay_payment_link_reference_id'] );
@@ -146,7 +157,7 @@ class CheckoutPage
             } else {
                 $this->failPayment( $orderMeta->edd_order_id );
             }
-            }
+        }
     }
 
     private function completePayment( $orderId )
@@ -188,5 +199,28 @@ class CheckoutPage
         }
 
         return $data;
+    }
+
+    // Handle payment notification system for Razorpay.
+    // This notification will be sent by Razorpay to the Customer.
+    private function handleNotify()
+    {
+        $allowedNotifications = edd_get_option('razorpay_notifications');
+
+        $setNotifications = [
+            'email' => false,
+            'sms' => false,
+        ];
+
+        if ( $allowedNotifications === 'email' ) {
+            $setNotifications['email'] = true;
+        } elseif ( $allowedNotifications === 'sms' ) {
+            $setNotifications['sms'] = true;
+        } elseif ( $allowedNotifications === 'email_sms' ) {
+            $setNotifications['email'] = true;
+            $setNotifications['sms'] = true;
+        }
+
+        return $setNotifications;
     }
 }
