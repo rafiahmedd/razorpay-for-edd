@@ -1,6 +1,6 @@
 <?php
-namespace PluginBuffet\RazorpayForEdd;
-use PluginBuffet\RazorpayForEdd\Api\RazorAPI;
+namespace RazorpayForEdd\App;
+use RazorpayForEdd\App\Api\RazorAPI;
 
 class CheckoutPage
 {

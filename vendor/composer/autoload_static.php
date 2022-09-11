@@ -7,14 +7,14 @@ namespace Composer\Autoload;
 class ComposerStaticInit8b7827f0c40408dfaa2cabac12cc760b
 {
     public static $prefixLengthsPsr4 = array (
-        'P' => 
+        'R' => 
         array (
-            'PluginBuffet\\RazorpayForEdd\\' => 28,
+            'RazorpayForEdd\\App\\' => 19,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'PluginBuffet\\RazorpayForEdd\\' => 
+        'RazorpayForEdd\\App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes',
         ),

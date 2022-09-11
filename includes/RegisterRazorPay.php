@@ -1,6 +1,6 @@
 <?php
-namespace PluginBuffet\RazorpayForEdd;
-use PluginBuffet\RazorpayForEdd\Helper;
+namespace RazorpayForEdd\App;
+use RazorpayForEdd\App\Helper;
 
 /**
  * This class is responsible for registering the Razorpay gateway with EDD.

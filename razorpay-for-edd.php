@@ -45,7 +45,7 @@ if( !class_exists( 'RazorPayForEDD' ) ) {
                 self::$instance->load_textdomain();
                 self::$instance->hooks();
             } elseif( $instance ) {
-                return self::$instance = new PluginBuffet\RazorpayForEdd . '\\' . $instance();
+                return self::$instance = new RazorpayForEdd\App . '\\' . $instance();
             }
 
             return self::$instance;
@@ -68,9 +68,9 @@ if( !class_exists( 'RazorPayForEDD' ) ) {
 
         private function hooks()
         {
-            new \PluginBuffet\RazorpayForEdd\RegisterRazorPay();
-            (new \PluginBuffet\RazorpayForEdd\CheckoutPage())->init();
-            (new \PluginBuffet\RazorpayForEdd\Api\HandleRazorRequest())->handleRequest();
+            new \RazorpayForEdd\App\RegisterRazorPay();
+            (new \RazorpayForEdd\App\CheckoutPage())->init();
+            (new \RazorpayForEdd\App\Api\HandleRazorRequest())->handleRequest();
         }
 
 

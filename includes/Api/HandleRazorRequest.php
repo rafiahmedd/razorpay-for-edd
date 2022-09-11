@@ -1,5 +1,5 @@
 <?php
-namespace PluginBuffet\RazorpayForEdd\Api;
+namespace RazorpayForEdd\App\Api;
 
 class HandleRazorRequest
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace PluginBuffet\RazorpayForEdd;
+namespace RazorpayForEdd\App;
 
 class Helper
 {
