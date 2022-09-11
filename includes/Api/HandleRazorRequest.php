@@ -3,6 +3,13 @@ namespace RazorpayForEdd\App\Api;
 
 class HandleRazorRequest
 {
+    public function init()
+    {
+        if ( edd_get_option('webhook_status') ) {
+            $this->handleRequest();
+        }
+    }
+
     // Method to check if the request is from Razorpay and is a valid request
     private function checkValidWebhook( $webhookToken )
     {
@@ -16,7 +23,7 @@ class HandleRazorRequest
     /**
      * Handle the webhook request
      */
-    public function handleRequest()
+    private function handleRequest()
     {
         $webhookToken = isset($_REQUEST['edd_razorpay_webhook_token']) ?? $_REQUEST['edd_razorpay_webhook_token'];
         if ( !$this->checkValidWebhook( $webhookToken ) ) {

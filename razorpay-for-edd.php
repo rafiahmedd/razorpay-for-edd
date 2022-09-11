@@ -70,7 +70,7 @@ if( !class_exists( 'RazorPayForEDD' ) ) {
         {
             new \RazorpayForEdd\App\RegisterRazorPay();
             (new \RazorpayForEdd\App\CheckoutPage())->init();
-            (new \RazorpayForEdd\App\Api\HandleRazorRequest())->handleRequest();
+            (new \RazorpayForEdd\App\Api\HandleRazorRequest())->init();
         }
 
 

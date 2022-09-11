@@ -102,6 +102,13 @@ class RegisterRazorPay
             ),
         );
 
+        $settings['razorpay_gateway']['webhook_status'] = array(
+            'id' => 'webhook_status',
+            'name' => __( 'Webhook Status', 'razorpay-for-edd' ),
+            'desc' => __( 'Manege payment changes more efficiently via webhook', 'razorpay-for-edd' ),
+            'type' => 'checkbox',
+        );
+
         return $settings;
     }
 

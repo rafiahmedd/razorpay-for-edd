@@ -12,7 +12,9 @@ class CheckoutPage
         add_action('edd_razorpay_gateway_cc_form', '__return_false');
 //        add_filter('edd_checkout_button_purchase', [ $this, 'overwritePaymentButton' ], 10000);
         add_action('edd_gateway_razorpay_gateway', [ $this, 'createRazorpayOrder' ]);
-        $this->handlePayment();
+        if ( !edd_get_option('webhook_status') ) {
+            $this->handlePayment();
+        }
     }
 
     // public function overwritePaymentButton( $button )
